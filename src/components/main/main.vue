@@ -79,8 +79,6 @@ export default {
       }else{
         res.headerBoo = true;
       }
-      
-      console.log(res)
         next(true)
     });
   },

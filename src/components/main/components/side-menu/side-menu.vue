@@ -8,7 +8,7 @@
       <template v-for="item in menuList">
         <template v-if="item.children && item.children.length === 1">
           <side-menu-item style = "background:#000" v-if="showChildren(item)" :key="`menu-${item.name}`" :parent-item="item"></side-menu-item>
-          <menu-item style = "background:#000" v-else :name="getNameOrHref(item, true)" :key="`menu-${item.children[0].name}`"><span :class="item.children[0].icon || ''"></span><span>{{ showTitle(item.children[0]) }}</span></menu-item>
+          <menu-item style = "background:#000" v-else :name="getNameOrHref(item, true)" :key="`menu-${item.children[0].name}`"><span :class="item.children[0].meta.icon || ''"></span><span>{{ showTitle(item.children[0]) }}</span></menu-item>
         </template>
         <template v-else>
           <side-menu-item style = "background:#000" v-if="showChildren(item)" :key="`menu-${item.name}`" :parent-item="item"></side-menu-item>
@@ -79,7 +79,6 @@ export default {
   },
   methods: {
     handleSelect (name) {
-      console.log('你可以在这直接写跳转页面逻辑')
       this.$emit('on-select', name)
       
     },
@@ -111,6 +110,7 @@ export default {
     }
   },
   mounted () {
+    
     this.openedNames = getUnion(this.openedNames, this.getOpenedNamesByActiveName(name))
   }
 }

@@ -59,7 +59,6 @@ export default {
           }else{
             alert(userMsg.msg);
           }
-          console.log(userMsg)
         })
     },
     signButtonShow(){

@@ -22,5 +22,7 @@ export default {
   side7: '活动中心',
   side8: '订单中心',
   error_logger_page: '错误日志',
-  message_page: '消息中心'
+  message_page: '消息中心',
+  first: '地图模式',
+  directive: '订单中心'
 }

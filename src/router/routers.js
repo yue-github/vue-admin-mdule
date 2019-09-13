@@ -55,15 +55,19 @@ export default [
     name: 'first',
     component: Main,
     meta: {
-      hideInBread: true
+      hideInBread: true,
+      title: '地图模式',
+      icon: 'fa fa-globe font-change'
     },
+    // 地图模式
     children: [
       {
         path: 'first_page',
         name: 'side1',
         meta: {
           icon: 'fa fa-globe font-change',
-          title: 'side1'
+          title: 'side1',
+          name: '地图模式'
         },
         component: () => import('@/view/first-page/index.vue')
       }
@@ -349,7 +353,9 @@ export default [
     path: '/directive',
     name: 'directive',
     meta: {
-      hideInBread: true
+      hideInBread: true,
+      title: '订单中心',
+      icon: 'fa fa-map font-change'
     },
     component: Main,
     children: [
@@ -358,7 +364,8 @@ export default [
         name: 'side8',
         meta: {
           icon: 'fa fa-map font-change',
-          title: 'side8'
+          title: 'side8',
+          access: ['hehe']
         },
         component: () => import('@/view/directive/directive.vue')
       }
