@@ -14,12 +14,12 @@
     <ul v-show="visible" :style="{left: contextMenuLeft + 'px', top: contextMenuTop + 'px'}" class="contextmenu">
       <li v-for="(item, key) of menuList" @click="handleTagsOption(key)" :key="key">{{item}}</li>
     </ul>
-    <div class="btn-con left-btn" ref="btn_con" style="background:black;z-index:1000">
+    <div class="btn-con left-btn" ref="btn_con" style="background:black;z-index:100">
       <Button type="text" @click="handleScroll(240)" style="background:black">
         <Icon :size="18" class="btn-icon" type="ios-arrow-back" color="blue"/>
       </Button>
     </div>
-    <div class="btn-con right-btn" ref="btn_con" style="background:black;z-index:1000">
+    <div class="btn-con right-btn" ref="btn_con" style="background:black;z-index:100">
       <Button type="text" @click="handleScroll(-240)" style="background:black">
         <Icon :size="18" class="btn-icon" type="ios-arrow-forward" color="blue"/>
       </Button>
