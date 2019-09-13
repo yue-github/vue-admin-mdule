@@ -1,9 +1,9 @@
 <template>
-  <div class="tags-nav">
+  <div class="tags-nav" style="background:black">
     <div class="close-con">
       <Dropdown transfer @on-click="handleTagsOption" style="margin-top:7px;">
         <Button size="small" type="text">
-          <Icon :size="18" type="ios-close-circle-outline" />
+          <Icon :size="18" type="ios-close-circle-outline"/>
         </Button>
         <DropdownMenu slot="list">
           <DropdownItem name="close-all">关闭所有</DropdownItem>
@@ -14,14 +14,14 @@
     <ul v-show="visible" :style="{left: contextMenuLeft + 'px', top: contextMenuTop + 'px'}" class="contextmenu">
       <li v-for="(item, key) of menuList" @click="handleTagsOption(key)" :key="key">{{item}}</li>
     </ul>
-    <div class="btn-con left-btn">
-      <Button type="text" @click="handleScroll(240)">
-        <Icon :size="18" type="ios-arrow-back" />
+    <div class="btn-con left-btn" ref="btn_con" style="background:black;z-index:1000">
+      <Button type="text" @click="handleScroll(240)" style="background:black">
+        <Icon :size="18" class="btn-icon" type="ios-arrow-back" color="blue"/>
       </Button>
     </div>
-    <div class="btn-con right-btn">
-      <Button type="text" @click="handleScroll(-240)">
-        <Icon :size="18" type="ios-arrow-forward" />
+    <div class="btn-con right-btn" ref="btn_con" style="background:black;z-index:1000">
+      <Button type="text" @click="handleScroll(-240)" style="background:black">
+        <Icon :size="18" class="btn-icon" type="ios-arrow-forward" color="blue"/>
       </Button>
     </div>
     <div class="scroll-outer" ref="scrollOuter" @DOMMouseScroll="handlescroll" @mousewheel="handlescroll">
@@ -35,10 +35,11 @@
             :name="item.name"
             :data-route-item="item"
             @on-close="handleClose(item)"
-            @click.native="handleClick(item)"
+            @click.native="handleClick(item,index)"
             :closable="item.name !== $config.homeName"
             :color="isCurrentTag(item) ? 'primary' : 'default'"
             @contextmenu.prevent.native="contextMenu(item, $event)"
+            style="background:black!important"
           >{{ showTitleInside(item) }}</Tag>
         </transition-group>
       </div>
@@ -135,7 +136,7 @@ export default {
       let res = this.list.filter(item => !routeEqual(route, item))
       this.$emit('on-close', res, undefined, route)
     },
-    handleClick (item) {
+    handleClick (item, index) {
       this.$emit('input', item)
     },
     showTitleInside (item) {
@@ -200,10 +201,12 @@ export default {
     setTimeout(() => {
       this.getTagElementByRoute(this.$route)
     }, 200)
+    
   }
 }
 </script>
 
 <style lang="less">
 @import './tags-nav.less';
+  
 </style>

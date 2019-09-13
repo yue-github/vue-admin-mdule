@@ -10,7 +10,7 @@
       </side-menu>
     </Sider>
     <Layout>
-      <Header class="header-con">
+      <Header class="header-con" v-if="headerBoo">
         <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
           <user :message-unread-count="unreadCount" :user-avatar="userAvatar"/>
           <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local"/>
@@ -20,10 +20,11 @@
       </Header>
       <Content class="main-content-con">
         <Layout class="main-layout-con">
-          <div class="tag-nav-wrapper">
+          <div class="tag-nav-wrapper" v-if="headerBoo">
             <tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag"/>
           </div>
-          <Content class="content-wrapper">
+          <Content :class="{'content-wrapper': true,'change-black': !headerBoo}">
+          <!-- <Content :class="{contentWrapper: true, changeBlack: !headerBoo}"> -->
             <keep-alive :include="cacheList">
               <router-view/>
             </keep-alive>
@@ -63,11 +64,25 @@ export default {
   },
   data () {
     return {
+      headerBoo:false,
       collapsed: false,
       minLogo,
       maxLogo,
       isFullscreen: false
     }
+  },
+  beforeRouteEnter(to,from,next){
+    
+    next(res=>{
+      if (to.name == 'side2' || to.name == 'side1') {
+        res.headerBoo = false;
+      }else{
+        res.headerBoo = true;
+      }
+      
+      console.log(res)
+        next(true)
+    });
   },
   computed: {
     ...mapGetters([
@@ -147,7 +162,8 @@ export default {
     },
     handleClick (item) {
       this.turnToPage(item)
-    }
+    },
+  
   },
   watch: {
     '$route' (newRoute) {

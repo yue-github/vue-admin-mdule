@@ -62,7 +62,7 @@ export default [
         path: 'first_page',
         name: 'side1',
         meta: {
-          icon: 'fa fa-book font-change',
+          icon: 'fa fa-globe font-change',
           title: 'side1'
         },
         component: () => import('@/view/first-page/index.vue')

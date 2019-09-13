@@ -1,5 +1,7 @@
 <template>
-	<div id="container" tabindex="0"></div>
+	<div id="container" tabindex="0">
+    <span class = "back fa fa-mail-reply-all" v-show = "backBoo" @click="goHome"></span>
+  </div>
 </template>
 
 <script>
@@ -7,11 +9,17 @@ export default {
   name: 'first-page',
   data () {
     return {
+      backBoo:false,
       tab: [],
       company_info: ''
     }
   },
   methods: {
+    goHome(){
+      this.$router.push({
+        path:'/'
+      });
+    },
     getData () {
       let data = {
 
@@ -21,10 +29,8 @@ export default {
         password: 'hlm.0427.'
       })
         .then(res => {
-          console.log(res)
           localStorage.accessToken = res.data.result.access_token
           this.$post('mobile_org_info/businessEquipmentList', data).then(res => {
-            console.log(res)
             this.tab = res.data.result
             // console.log(this.tab)
             this.map(this.tab)
@@ -35,6 +41,7 @@ export default {
 
     map (tab) {
       let me = this
+      me.backBoo = true;
       var map = new AMap.Map('container', {
         resizeEnable: true,
         mapStyle: 'amap://styles/grey',
@@ -48,7 +55,7 @@ export default {
       })
 
       var cluster, markers = []
-      console.log(tab)
+      // console.log(tab)
 			    // 创建一个 icon
       var red = new AMap.Icon({
         size: new AMap.Size(26, 26),
@@ -136,12 +143,12 @@ export default {
       for (let a of markers) {
         // a.on('click', showInfoM);
         AMap.event.addListener(a, 'click', function () {
-          console.log(a.Je.id)
+          // console.log(a.Je.id)
           let data = {
             incId: a.Je.id
           }
           me.$post('mobile_org_info/getincorginfo', data).then(res => {
-            console.log(res)
+            // console.log(res)
 
             // 实例化信息窗体
             var title = res.data.result.Name,
@@ -220,7 +227,12 @@ export default {
 #container{
 	width: 100%;
 	height: 600px;
-	margin: 0px
+	margin: 0px;
+  height:100vh;
+  position:fixed;
+  left:0;
+  top:0;
+  z-index:100000;
 }
 .content-window-card {
 	position: relative;
@@ -306,5 +318,18 @@ span {
 }
 .time{
 	font-size:14px;
+}
+.back{
+  position:absolute;
+  right:30px;
+  top:30px;
+  z-index:1000010;
+  color:blue;
+  opacity:0.9;
+  font-size:50px;
+  cursor:pointer;
+}
+.back:hover{
+  opacity:0.6;
 }
 </style>
