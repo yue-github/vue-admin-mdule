@@ -78,7 +78,9 @@ export default [
     name: 'join',
     component: Main,
     meta: {
-      hideInBread: true
+      hideInBread: true,
+      title: '通告中心',
+      icon: 'fa fa-briefcase font-change'
     },
     children: [
       {
