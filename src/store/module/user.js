@@ -27,8 +27,8 @@ export default {
     messageContentStore: {}
   },
   mutations: {
-    setAccessToken (accessToken) {
-      this.state.accessToken = accessToken
+    setAccessToken (state, accessToken) {
+      state.accessToken = accessToken
     },
     getAccessToken () {
       return this.state.accessToken

@@ -9,7 +9,7 @@ export default {
   name: 'first-page',
   data () {
     return {
-      backBoo:false,
+      backBoo:true,
       tab: [],
       company_info: ''
     }
@@ -20,10 +20,39 @@ export default {
         path:'/'
       });
     },
-    getData () {
-      let data = {
+    canvasMap(){
+          var map = new AMap.Map('container', {
+              resizeEnable: true, //是否监控地图容器尺寸变化
+              zoom:11, //初始化地图层级
+              center: [113.38, 22.52], //初始化地图中心点
+              mapStyle: 'amap://styles/darkblue'
+          });
+         // 同时引入工具条插件，比例尺插件和鹰眼插件
+          AMap.plugin([
+              'AMap.ToolBar',
+              // 'AMap.Scale',
+              // 'AMap.OverView',
+              'AMap.MapType',
+              'AMap.Geolocation',
+          ], function(){
+              // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+              map.addControl(new AMap.ToolBar());
 
-      }
+              // // 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+              // map.addControl(new AMap.Scale());
+
+              // // 在图面添加鹰眼控件，在地图右下角显示地图的缩略图
+              // map.addControl(new AMap.OverView({isOpen:true}));
+            
+              // 在图面添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制
+              map.addControl(new AMap.MapType());
+            
+              // 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
+              map.addControl(new AMap.Geolocation());
+          });
+    },
+    getData () {
+      let data = {};
       this.$post('login', {
         username: '1142327164@qq.com',
         password: 'hlm.0427.'
@@ -54,7 +83,7 @@ export default {
         map.addControl(toolbar)
       })
 
-      var cluster, markers = []
+      var cluster, markers = [];
       // console.log(tab)
 			    // 创建一个 icon
       var red = new AMap.Icon({
@@ -218,7 +247,8 @@ export default {
 
   },
   mounted () {
-    this.getData()
+    this.canvasMap();
+    // this.getData()
   }
 }
 </script>
@@ -230,11 +260,12 @@ export default {
 	margin: 0px;
   height:100vh;
   position:fixed;
+  background:black;
   left:0;
   top:0;
-  z-index:100000;
+  z-index:1000000;
 }
-.content-window-card {
+/* .content-window-card {
 	position: relative;
 	box-shadow: none;
 	bottom: 0;
@@ -251,7 +282,6 @@ div.info-top {
 	position: relative;
 	background: none repeat scroll 0 0 #F9F9F9;
 	border-bottom: 1px solid #CCC;
-	/* border-radius: 5px 5px 0 0; */
 }
 
 div.info-top div {
@@ -305,7 +335,6 @@ span {
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
-	/* margin-top:10px; */
 }
 .status{
 	height: 50px;
@@ -318,11 +347,11 @@ span {
 }
 .time{
 	font-size:14px;
-}
+} */
 .back{
   position:absolute;
-  right:30px;
-  top:30px;
+  left:70px;
+  top:15px;
   z-index:1000010;
   color:blue;
   opacity:0.9;

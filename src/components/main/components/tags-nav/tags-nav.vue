@@ -39,8 +39,8 @@
             :closable="item.name !== $config.homeName"
             :color="isCurrentTag(item) ? 'primary' : 'default'"
             @contextmenu.prevent.native="contextMenu(item, $event)"
-            style="background:black!important"
-          >{{ showTitleInside(item) }}</Tag>
+            style="background:black!important;"
+          ><span style="color:white;opacity:0.8">{{ showTitleInside(item) }}</span></Tag>
         </transition-group>
       </div>
     </div>
