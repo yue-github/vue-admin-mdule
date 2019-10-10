@@ -208,5 +208,8 @@ export default {
 
 <style lang="less">
 @import './tags-nav.less';
-  
+.ivu-icon-ios-close::before{
+  color:white!important;
+  opacity:1!important;
+}
 </style>
